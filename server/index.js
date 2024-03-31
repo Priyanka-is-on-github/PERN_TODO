@@ -1,10 +1,11 @@
  const express = require("express");
  const cors = require('cors')
  const app = express();
+  
 
  const router = require("./routes/authroutes")
 
- const PORT = 3421;
+ const PORT = 3421; 
  //middlewares
   app.use(cors());
   app.use(express.json());

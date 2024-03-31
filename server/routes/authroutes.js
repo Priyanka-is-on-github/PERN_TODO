@@ -6,7 +6,7 @@
  router.post('/todos',async(req, res)=>{
     try {
        const {description}=req.body; 
-       console.log(description)
+      //  console.log(description)
        const newTodo = await pool.query("INSERT INTO todo(description) VALUES($1) RETURNING *",[description]);
        res.json(newTodo.rows)
     } catch (error) {
@@ -18,7 +18,8 @@
 
  router.get('/todos',async(req, res)=>{
    try {
-      const allTodos = await pool.query("SELECT *FROM todo"); 
+      const allTodos = await pool.query("SELECT *FROM todo ORDER BY todo_id"); 
+      // console.log(allTodos.rows)
       res.json(allTodos.rows)
    } catch (error) {
       console.error(error)
@@ -56,7 +57,7 @@
    try {
       const {id}= req.params;
       const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1",[id]);
-      res.json("todo is deleted")
+      res.json({status:"ok",message:"todo is deleted"});
    } catch (error) {
       console.error(error)
    }
